@@ -72,17 +72,6 @@ def dijkstra_heapbased(source_node, graph_adjacency_list):
     return shortest_distances
 
 
-
-
-def solve():
-    path = 'dijkstraData.txt'
-    course_graph = get_adjacency_list_from_file(path)
-    heapbased_shortest_paths = dijkstra_heapbased(1, course_graph)
-
-    heapbased_results = get_significant_results(heapbased_shortest_paths, [7, 37, 59, 82, 99, 115, 133, 165, 188, 197])
-    print(list(heapbased_results))
-
-
 if __name__ == '__main__':
     import doctest
     import sys
