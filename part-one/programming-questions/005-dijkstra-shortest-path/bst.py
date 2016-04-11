@@ -11,6 +11,35 @@ class BinarySearchTreeNode:
     def __repr__(self):
         return "%s" % (self.key)
 
+    def __bool__(self):
+        return True
+
+    def __len__(self):
+        """
+        >>> t = BinarySearchTree([3, 1, 5, 2, 4])
+        >>> len(t)
+        5
+
+        >>> n = t.insert(6)
+        >>> len(t)
+        6
+
+        >>> t.delete(5)
+        >>> len(t)
+        5
+
+        :return:
+        """
+        size = 1
+
+        if self.left:
+            size += len(self.left)
+
+        if self.right:
+            size += len(self.right)
+
+        return size
+
     def copy(self):
         return BinarySearchTreeNode(self.key, self.parent, self.left, self.right)
 
@@ -288,6 +317,7 @@ class BinarySearchTreeNode:
             parent.replace_child(self, predecessor)
 
             predecessor_parent.replace_child(predecessor_copy, self)
+            predecessor.replace_child(predecessor, None)
 
             self.remove()
 
@@ -295,18 +325,22 @@ class BinarySearchTreeNode:
 
     def delete(self, key):
         """
-        >>> t = BinarySearchTree([3, 1, 5, 2, 4])
-        >>> t.delete(2)
-        >>> t.search(2)
+        # >>> t = BinarySearchTree([3, 1, 5, 2, 4])
+        # >>> t.delete(2)
+        # >>> t.search(2)
+        #
+        # >>> t = BinarySearchTree([3, 1, 5, 2, 4])
+        # >>> t.delete(5)
+        # >>> t.search(5)
+        #
+        # >>> t = BinarySearchTree([3, 1, 5, 2, 4])
+        # >>> t.delete(3)
+        # >>> t.search(3)
 
         >>> t = BinarySearchTree([3, 1, 5, 2, 4])
+        >>> n = t.insert(6)
         >>> t.delete(5)
         >>> t.search(5)
-
-        deleting root node is not supported yet
-        >>> t = BinarySearchTree([3, 1, 5, 2, 4])
-        >>> t.delete(3)
-        >>> t.search(3)
 
         :param key:
         :return:
@@ -325,6 +359,12 @@ class BinarySearchTree(BinarySearchTreeNode):
 
     def __repr__(self):
         return "root: %s" % (self.root)
+
+    def __len__(self):
+        if self.root:
+            return len(self.root)
+        else:
+            return 0
 
     def get_bst(self, nodes_keys):
         """
