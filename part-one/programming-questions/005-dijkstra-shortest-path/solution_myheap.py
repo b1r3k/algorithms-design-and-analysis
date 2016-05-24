@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import operator
-import myheap
+import my_min_heap
 
 
 def print_err(*args):
@@ -35,12 +35,12 @@ def dijkstra_heapbased(source_node, graph_adjacency_list):
 
     for node in graph_adjacency_list.keys():
         if node == source_node:
-            myheap.heappush(heap, (0, node))
+            my_min_heap.heappush(heap, (0, node))
         else:
-            myheap.heappush(heap, (float('inf'), node))
+            my_min_heap.heappush(heap, (float('inf'), node))
 
     while len(heap):
-        current_distance, current_node = myheap.heappop(heap)
+        current_distance, current_node = my_min_heap.heappop(heap)
 
         shortest_distances[current_node] = current_distance
         explored.append(current_node)
@@ -57,11 +57,11 @@ def dijkstra_heapbased(source_node, graph_adjacency_list):
             if node_idx_in_heap >= 0:
                 node_dist = heap[node_idx_in_heap][0]
                 if possible_dist < node_dist:
-                    myheap.remove(heap, node_idx_in_heap)
+                    my_min_heap.remove(heap, node_idx_in_heap)
                 else:
                     continue
 
-            myheap.heappush(heap, (possible_dist, adjacent_node))
+            my_min_heap.heappush(heap, (possible_dist, adjacent_node))
 
     return shortest_distances
 
