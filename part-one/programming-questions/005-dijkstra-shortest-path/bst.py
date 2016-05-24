@@ -325,17 +325,17 @@ class BinarySearchTreeNode:
 
     def delete(self, key):
         """
-        # >>> t = BinarySearchTree([3, 1, 5, 2, 4])
-        # >>> t.delete(2)
-        # >>> t.search(2)
-        #
-        # >>> t = BinarySearchTree([3, 1, 5, 2, 4])
-        # >>> t.delete(5)
-        # >>> t.search(5)
-        #
-        # >>> t = BinarySearchTree([3, 1, 5, 2, 4])
-        # >>> t.delete(3)
-        # >>> t.search(3)
+        >>> t = BinarySearchTree([3, 1, 5, 2, 4])
+        >>> t.delete(2)
+        >>> t.search(2)
+
+        >>> t = BinarySearchTree([3, 1, 5, 2, 4])
+        >>> t.delete(5)
+        >>> t.search(5)
+
+        >>> t = BinarySearchTree([3, 1, 5, 2, 4])
+        >>> t.delete(3)
+        >>> t.search(3)
 
         >>> t = BinarySearchTree([3, 1, 5, 2, 4])
         >>> n = t.insert(6)
@@ -348,6 +348,42 @@ class BinarySearchTreeNode:
         node = self.search(key)
 
         return node.remove()
+
+    def select(self, ith):
+        """
+        >>> t = BinarySearchTree([3, 1, 5, 2, 4])
+        >>> t.select(1)
+        1
+
+        >>> t.select(5)
+        5
+
+        :param ith:
+        :return:
+        """
+
+        if hasattr(self, 'root'):
+            node = self.root
+        else:
+            node = self
+
+        try:
+            if hasattr(node, 'left') and node.left:
+                a = len(node.left)
+            else:
+                a = 0
+
+            if a >= ith:
+                return node.left.select(ith)
+
+            if a < ith - 1:
+                return node.right.select(ith - a - 1)
+
+        except (AttributeError, TypeError) as e:
+            return node.root.select(ith)
+
+        # if a == ith - 1:
+        return node
 
 
 class BinarySearchTree(BinarySearchTreeNode):
