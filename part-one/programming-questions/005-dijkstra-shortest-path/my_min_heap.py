@@ -11,6 +11,12 @@ def get_parent_index(heap, children_index):
     >>> get_parent_index([1, 2, 3, 4], 3)
     1
 
+    >>> get_parent_index([1, 2, 3, 4], 0)
+    0
+
+    >>> get_parent_index([1, 2, 3], 0)
+    0
+
     :param heap:
     :param children_index:
     :return:
@@ -21,7 +27,12 @@ def get_parent_index(heap, children_index):
     else:
         parent_index = math.floor((children_index + 1) / 2)
 
-    return int(parent_index - 1)
+    final_parent_idx = int(parent_index - 1)
+
+    if final_parent_idx >= 0:
+        return final_parent_idx
+
+    return 0
 
 
 def get_children_index(heap, parent_index):
@@ -184,9 +195,11 @@ def bubble_up(heap, item_index):
     >>> bubble_up([4, 4, 8, 9, 4, 5], 5)
     [4, 4, 5, 9, 4, 8]
 
-
     >>> bubble_up([(4, 'a'), (4, 'b'), (8, 'c'), (9, 'd'), (4, 'e'), (5, 'new')], 5)
     [(4, 'a'), (4, 'b'), (5, 'new'), (9, 'd'), (4, 'e'), (8, 'c')]
+
+    >>> bubble_up([5400, 5484, 5048], 2)
+    [5048, 5484, 5400]
 
     :param heap:
     :param item_index:
